@@ -1,0 +1,131 @@
+{layout name="layout" /}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f9f9f9;
+        }
+
+        td img {
+            border-radius: 5px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination li {
+            list-style: none;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+    </style>
+
+    <div class="container">
+        <h2>未上架商品</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>商品名</th>
+                    <th>图片</th>
+                    <th>价格</th>
+                    <th>简介</th>
+                    <th>类别号</th>
+                    <th>销量</th>
+                    <th>库存</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name="products" id="product"}
+                    <tr>
+                        <td>{$product.pId}</td>
+                        <td>{$product.pName|substr=0,20}</td>
+                        <td><img width="100px" height="100px" src="__STATIC__/upload/{$product.pImg}" alt="商品图片"/></td>
+                        <td>{$product.pPrice}</td>
+                        <td>{$product.pDescr|substr=0,20}</td>
+                        <td>{$product.pClassId}</td>
+                        <td>{$product.pSales}</td>
+                        <td>
+                            <input type="number" value="{$product.pStock}" id="stock_{$product.pId}">
+                        </td>
+                        <td>
+                            <a href="{:url('admin/product/up', ['id' => $product.pId])}">上架</a> |
+                            <a href="{:url('admin/product/update', ['id' => $product.pId])}">修改</a> |
+                            <a href="{:url('admin/product/delete', ['id' => $product.pId])}" onclick="return confirm('确定要删除吗？');">删除</a> |
+                            <a href="{:url('admin/product/detail', ['id' => $product.pId])}">详情</a>
+                        </td>
+                    </tr>
+                {/volist}
+            </tbody>
+        </table>
+        <div class="pagination">
+            {$products->render()}
+        </div>
+    </div>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>管理员后台</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ccc; /* 修改这里的颜色值 */
+}
+
+header {
+    background-color: #FFFFFF;
+    height: 40px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+header div {
+    margin-left: auto;
+}
+
+
+.sidebar {
+    background-color: #3d3b3b;
+    width: 200px;
+    height: 100vh; /* 修改为100vh以覆盖整个视口高度 */
+    padding: 10px;
+    box-sizing: border-box;
+    position: fixed; /* 固定侧边栏 */
+    top: 0; /* 顶部对齐 */
+    left: 0; /* 左侧对齐 */
+    transition: margin-left 0.3s ease; /* 添加过渡效果 */
+}
+
+.sidebar.collapsed {
+    margin-left: -200px; /* 收缩后的宽度 */
+}
+
+.content {
+    padding: 20px;
+    margin-left: 220px; /* 200px 侧边栏宽度 + 20px 边距 */
+    transition: margin-left 0.3s ease; /* 添加过渡效果 */
+}
+
+.content.collapsed {
+    margin-left: 20px; /* 收缩后的边距 */
+}
+
+
+
+/* 添加按钮样式 */
+.toggle-btn {
+    position: fixed;
+    top: 45px;
+    left: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: left 0.3s ease; /* 添加过渡效果 */
+}
+
+.sidebar.collapsed + .toggle-btn {
+    left: 0;
+}
+
+/* 下拉菜单样式 */
+.dropdown {
+    margin-bottom: 10px;
+}
+
+.dropdown p {
+    margin: 0;
+    padding: 10px;
+    background-color: #3d3b3b;
+    cursor: pointer;
+    color: #fbf3f3;
+}
+
+.dropdown-content {
+    display: none;
+    padding-left: 20px;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 5px 0;
+    text-decoration: none;
+    color: #fbf3f3;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div>
+        {notempty name="$Request.session.adminName"}
+            欢迎您：{$Request.session.adminName} 
+            <a href="{:Url('admin/index/logout')}">退出</a>
+        {/notempty}  
+        {empty name="$Request.session.adminName"}
+            <script>alert('你还没登录，请先登录!');window.location.href= "{:Url('admin/index/login')}";</script>
+        {/empty}
+    </div>
+</header>
+
+
+<div class="sidebar" id="sidebar">
+    <div class="dropdown">
+        <p><a href="{:Url('admin/index/index')}" style="color: #fbf3f3; text-decoration: none;">系统首页</a></p>
+    </div>
+    <div class="dropdown">
+        <p onclick="toggleDropdown(this)">管理员信息管理</p>
+        <div class="dropdown-content">
+            <a href="{:Url('admin/index/adminNew')}">增加管理员</a>
+            <a href="{:Url('admin/index/adminMaint')}">维护管理员</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <p onclick="toggleDropdown(this)">商品信息管理</p>
+        <div class="dropdown-content">
+            <a href="{:Url('admin/product/productNew')}">增加商品</a>
+            <a href="{:Url('admin/product/index')}">维护商品</a>
+            <a href="{:Url('admin/product/listup')}">已上架商品</a>
+            <a href="{:Url('admin/product/listdown')}">未上架商品</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <p onclick="toggleDropdown(this)">上传管理</p>
+        <div class="dropdown-content">
+            <a href="{:Url('admin/index/uploadPic')}">上传商品图片</a>
+            <a href="{:Url('admin/index/deletePic')}">删除商品图片</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <p onclick="toggleDropdown(this)">订单管理</p>
+        <div class="dropdown-content">
+            <a href="{:Url('admin/orders/index')}">所有订单</a>
+            <a href="{:Url('admin/orders/orders0')}">待付款订单</a>
+            <a href="{:Url('admin/orders/orders1')}">待发货订单</a>
+            <a href="{:Url('admin/orders/orders2')}">待收货订单</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <p onclick="toggleDropdown(this)">用户评价</p>
+        <div class="dropdown-content">
+            <a href="{:Url('admin/ordercomments/index')}">订单评价</a>
+            <a href="{:Url('admin/ordercomments/productComment')}">商品评价</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <p onclick="toggleDropdown(this)">功能</p>
+        <div class="dropdown-content">
+            <a href="{:Url('admin/reply/index')}">功能处，记得修改链接</a>
+            <a href="{:Url('admin/reply/create')}">功能处，记得修改链接</a>
+        </div>
+    </div>
+</div>
+
+<!-- 添加按钮 -->
+<div class="toggle-btn" onclick="toggleSidebar()">≡</div>
+
+<div class="content" id="content">
+    {__CONTENT__}
+</div>
+
+
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    var content = document.getElementById('content');
+    var toggleBtn = document.querySelector('.toggle-btn');
+    sidebar.classList.toggle('collapsed');
+    content.classList.toggle('collapsed');
+    toggleBtn.classList.toggle('collapsed');
+}
+
+function toggleDropdown(element) {
+    var content = element.nextElementSibling;
+    if (content.style.display === "block") {
+        content.style.display = "none";
+    } else {
+        content.style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>

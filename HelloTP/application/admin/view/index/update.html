@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改商品</title>
+</head>
+<body>
+    <h1>一个简单的修改商品页面</h1>
+    <form action="{:Url('admin/index/updatecheck')}" method="post">
+	商品ID<input type="text" name="pId" readonly value="{$product['pId']}"></input><br/>
+    商品名<input type="text" name="pName" value="{$product['pName']}"></input><br/>
+    商品价格<input type="text" name="pPrice" value="{$product['pPrice']}"></input><br/>
+	商品简介<input type="text" name="pDescr" value="{$product['pDescr']}"></input><br/>
+	商品图片
+    <select name='pImg' id='pImg' required="true">
+		<option value="">请选择图片</option>
+		{foreach name="files" item="data"}
+		{if condition="($data!='.') and ($data!='..') "}
+			{if condition="($data==$product['pImg'])"}
+			  <option value='{$data}' selected='selected'>{$data}</option>
+			{else /}
+			  <option value='{$data}'>{$data}</option>
+			{/if}
+		{/if}
+		{/foreach}	
+	</select>	<br/>
+    <input type="submit">
+    </form>
+</body>
+</html>
+

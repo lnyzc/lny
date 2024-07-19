@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>新增商品</title>
+</head>
+<body>
+    <h1>一个简单的新增商品页面</h1>
+    <form action="{:Url('admin/index/addnewcheck')}" method="post">
+    商品名<input type="text" name="pName"></input><br/>
+    商品价格<input type="text" name="pPrice"></input><br/>
+	商品简介<input type="text" name="pDescr"></input><br/>
+	商品图片
+    <select name='pImg' id='pImg' required="true">
+		<option value="">请选择图片</option>
+		{foreach name="files" item="data"}
+		{if condition="($data!='.') and ($data!='..') "}
+		<option value='{$data}'>{$data}</option>
+		{/if}
+		{/foreach}	
+	</select>	<br/>
+    <input type="submit">
+    </form>
+</body>
+</html>
+

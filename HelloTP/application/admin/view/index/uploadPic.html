@@ -1,0 +1,47 @@
+{layout name="layout" /}
+<style>
+form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #555;
+}
+</style>
+<form action="upload_image" method="post" enctype="multipart/form-data">
+	<label for="file">图片文件名:</label>
+	<input type="file" name="file" id="file" required /> 
+	<br />
+	<input type="submit" name="submit" value="提交" />
+</form>
+<form action="upload_lunboimage" method="post" enctype="multipart/form-data">
+	<label for="file">上传轮播图:</label>
+	<input type="file" name="file" id="file" required /> 
+	<br />
+	<input type="submit" name="submit" value="提交" />
+</form>

@@ -1,0 +1,185 @@
+{layout name="layout" /}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    form {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        width: 60%;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    input[type="submit"] {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f9f9f9;
+    }
+
+    td img {
+        border-radius: 5px;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+
+    .pagination {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .pagination li {
+        list-style: none;
+        display: inline-block;
+        width: 30px;
+    }
+
+    .pagination a {
+        color: #007bff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin: 0 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .pagination a:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .pagination .active a {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+</style>
+<div class="container">
+    <h2>商品信息管理</h2>
+    <form name="form1" method="get" action="">
+        查询关键字 
+        <input name="keyword" type="text" id="keyword" size="40" value="{$keyword}">
+        <input type="submit"  value="查询">
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>商品名</th>
+                <th>图片</th>
+                <th>价格</th>
+                <th>简介</th>
+                <th>类别号</th>
+                <th>销量</th>
+                <th>库存</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach name="products" item="data"}
+            <tr>
+                <td>{$data['pId']}</td>
+                <td>{$data['pName']|substr=0,20}</td>
+                <td><img width="100px" height="100px" src="../../../static/upload/{$data['pImg']}" alt="商品图片"/></td>
+                <td>{$data['pPrice']}</td>
+                <td>{$data['pDescr']|substr=0,20}</td>
+                <td>{$data['pClassId']}</td>
+                <td>{$data['pSales']}</td>
+                <td>
+                    <input type="number" value="{$data['pStock']}" id="stock_{$data['pId']}">
+                </td>
+                <td>
+                    {if $data['pUp'] == 1}
+                        <a href="{:Url('admin/product/down', ['id' => $data['pId']])}">下架</a> |
+                    {else}
+                        <a href="{:Url('admin/product/up', ['id' => $data['pId']])}">上架</a> |
+                    {/if}
+                    <a href="{:Url('admin/product/update', ['id' => $data['pId']])}">修改</a> |
+                    <a href="{:Url('admin/product/delete', ['id' => $data['pId']])}" onclick="return confirm('确定要删除吗？');">删除</a> |
+                    <a href="{:Url('admin/product/detail', ['id' => $data['pId']])}">详情</a> |
+                </td>
+            </tr>
+            {/foreach}
+
+        </tbody>
+    </table>
+    <div class="pagination">
+        {$products->render()}
+    </div>
+</div>
+<script>
+    function updateStock(productId) {
+        var stock = document.getElementById('stock_' + productId).value;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "{:Url('admin/product/updateStock')}", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert('库存更新成功！');
+                location.reload(); // 刷新页面以显示最新数据
+            }
+        };
+        xhr.send("id=" + productId + "&stock=" + stock);
+    }
+    </script>
+    

@@ -1,0 +1,117 @@
+{layout name="layout" /}
+<style>
+.container {
+     max-width: 800px;
+     margin: 0 auto;
+     background-color: #fff;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     padding: 20px;
+ }
+
+ .container h2 {
+     text-align: center;
+     color: #333;
+ }
+
+ hr {
+     border: none;
+     border-top: 1px solid #ddd;
+     margin: 20px 0;
+ }
+
+ table {
+     width: 100%;
+     border-collapse: collapse;
+     margin: 20px 0;
+ }
+
+ table, th, td {
+     border: 1px solid #ddd;
+ }
+
+ th, td {
+     padding: 12px;
+     text-align: left;
+ }
+
+ th {
+     background-color: #f9f9f9;
+ }
+
+ td img {
+     border-radius: 5px;
+ }
+
+ .back-link {
+     text-align: center;
+     margin-top: 20px;
+ }
+
+ .back-link a {
+     color: #007bff;
+     text-decoration: none;
+     padding: 10px 20px;
+     border: 1px solid #007bff;
+     border-radius: 5px;
+     transition: background-color 0.3s, color 0.3s;
+ }
+
+ .back-link a:hover {
+     background-color: #007bff;
+     color: #fff;
+ }
+</style>
+<div class="container">
+     <h2>商品详情</h2>
+     <hr/>
+     <table>
+         <tr>
+             <th>字段</th>
+             <th>字段值</th>
+         </tr>
+         <tr>
+             <td>编号</td>
+             <td>{$detail['pId']}</td>
+         </tr>
+         <tr>
+             <td>商品名</td>
+             <td>{$detail['pName']}</td>
+         </tr>
+         <tr>
+             <td>价格</td>
+             <td>{$detail['pPrice']}</td>
+         </tr>
+         <tr>
+            <td>库存</td>
+            <td>{$detail['pStock']}</td>
+        </tr>
+        <tr>
+            <td>销量</td>
+            <td>{$detail['pSales']}</td>
+        </tr>
+         <tr>
+             <td>图片</td>
+             <td><img src="__STATIC__/upload/{$detail['pImg']}" width="100px" height="100px" alt="商品图片"></td>
+         </tr>
+         <tr>
+             <td>简介</td>
+             <td>{$detail['pDescr']}</td>
+         </tr>
+         <tr>
+             <td>类别号</td>
+             <td>{$detail['pClassId']}</td>
+         </tr>
+         <tr>
+             <td>日期</td>
+             <td>{$detail['pTime']}</td>
+         </tr>
+         <tr>
+             <td>详情</td>
+             <td>{$detail['pDescrDetail']}</td>
+         </tr>
+     </table>
+     <div class="back-link">
+         <a href="#" onclick="history.go(-1);">返回</a>
+     </div>
+ </div>

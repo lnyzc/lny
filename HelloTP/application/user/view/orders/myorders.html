@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog | E-Shopper</title>
+    <link href="__STATIC__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__STATIC__/css/font-awesome.min.css" rel="stylesheet">
+    <link href="__STATIC__/css/prettyPhoto.css" rel="stylesheet">
+    <link href="__STATIC__/css/price-range.css" rel="stylesheet">
+    <link href="__STATIC__/css/animate.css" rel="stylesheet">
+	<link href="__STATIC__/css/main.css" rel="stylesheet">
+	<link href="__STATIC__/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__STATIC__/js/html5shiv.js"></script>
+    <script src="__STATIC__/js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="__STATIC__/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__STATIC__/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__STATIC__/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__STATIC__/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="__STATIC__/images/ico/apple-touch-icon-57-precomposed.png">
+	<style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+        .single-blog-post table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .single-blog-post table th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .single-blog-post table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .single-blog-post table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .single-blog-post table tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+        .single-blog-post table .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .single-blog-post .btn-payment {
+            background-color: #28a745;
+        }
+        .single-blog-post .btn-payment:hover {
+            background-color: #218838;
+        }
+        .single-blog-post .btn-delete {
+            background-color: #dc3545;
+        }
+        .single-blog-post .btn-delete:hover {
+            background-color: #c82333;
+        }
+        .single-blog-post .btn-receive {
+            background-color: #17a2b8;
+        }
+        .single-blog-post .btn-receive:hover {
+            background-color: #138496;
+        }
+        .single-blog-post .btn-detail {
+            background-color: #6c757d;
+        }
+        .single-blog-post .btn-detail:hover {
+            background-color: #5a6268;
+        }
+		.order-categories {
+			margin-bottom: 20px;
+		}
+
+		.order-categories a {
+			margin-right: 10px;
+			padding: 5px 10px;
+			text-decoration: none;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+		}
+
+		.order-categories a.active {
+			background-color: #5bc0de;
+			color: #fff;
+			border-color: #46b8da;
+		}
+
+    </style>
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href=""><i class="fa fa-phone"></i> 131415310</a></li>
+								<li><a href=""><i class="fa fa-envelope"></i> info@domain.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href=""><i class="fa fa-facebook"></i></a></li>
+								<li><a href=""><i class="fa fa-twitter"></i></a></li>
+								<li><a href=""><i class="fa fa-linkedin"></i></a></li>
+								<li><a href=""><i class="fa fa-dribbble"></i></a></li>
+								<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 clearfix">
+						<div class="logo pull-left">
+							<a href="{:Url('user/index/index')}"><img src="__STATIC__/images/home/logo.png" alt="" /></a>
+						</div>
+
+					</div>
+					<div class="col-md-8 clearfix">
+						<div class="shop-menu clearfix pull-right">
+							<ul class="nav navbar-nav">
+								{notempty name="$Request.session.username"}
+								<li>
+									<a href="">欢迎您：{$Request.session.username}</a>
+								</li>
+								<li>
+									<a href="{:Url('user/index/logout')}">退出</a>
+								</li> 
+								{/notempty}
+								{empty name="$Request.session.username"}
+								<li>
+									<a href="{:Url('user/index/login')}"><i class="fa fa-lock"></i> 登录|注册</a>
+								{/empty}
+								</li>
+								<li><a href="{:Url('user/orders/cart')}"><i class="fa fa-shopping-cart"></i> 我的购物车</a></li>
+								<li><a href="{:Url('user/orders/myorders')}"><i class="fa fa-crosshairs"></i> 我的订单</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="{:Url('user/index/index')}">首页</a></li>
+								<li class="dropdown"><a href="#">联系我们<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="#">phone:131415310</a></li>
+										<li><a href="#" class="active">Email:usxwg@nb.com</a></li> 
+                                    </ul>
+                                </li> 
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian">
+							{$categoryHtml} <!-- 确保输出为HTML而不是转义后的字符串 -->
+						</div>
+						
+						<div class="shipping text-center"><!--shipping-->
+							<img src="__STATIC__/images/home/shipping.jpg" alt="" />
+						</div><!--/shipping-->
+					
+					</div>
+				</div>
+				<div class="col-sm-9">
+					<div class="blog-post-area">
+						<h2 class="title text-center">我的订单</h2>
+						<div class="single-blog-post">
+							<h3>订单分类</h3>
+							<div class="order-categories">
+								<a href="{:url('myorders')}?status=all" class="{if $currentStatus == 'all'}active{/if}">所有订单</a>
+								<a href="{:url('myorders')}?status=待付款" class="{if $currentStatus == '待付款'}active{/if}">待付款</a>
+								<a href="{:url('myorders')}?status=待发货" class="{if $currentStatus == '待发货'}active{/if}">待发货</a>
+								<a href="{:url('myorders')}?status=待收货" class="{if $currentStatus == '待收货'}active{/if}">待收货</a>
+								<a href="{:url('myorders')}?status=待评价" class="{if $currentStatus == '待评价'}active{/if}">待评价</a>
+								<a href="{:url('myorders')}?status=交易完成" class="{if $currentStatus == '交易完成'}active{/if}">交易完成</a>
+							</div>
+				
+							{notempty name="items"}
+							<div class="post-meta">
+								<ul>
+									<li><i class="fa fa-user"></i> {$items[0]['uName']}</li>
+								</ul>
+								<span>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+								</span>
+							</div>
+							<table>
+								<tr>
+									<th>订单号</th>
+									<th>日期</th>
+									<th>总价</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+								{foreach name="items" item="item"}
+								<tr>
+									<td>{$item.orderId}</td>
+									<td>{$item.orderDate}</td>
+									<td>{$item.totalPrice}</td>
+									<td>{$item.status}</td>
+									<td>
+										{if condition="$item.status eq '待付款'"}
+											<a href="{:url('orders/payment', ['id' => $item.orderId])}" class="btn btn-payment">去付款</a>
+											<a href="{:url('orders/orderDelete', ['id' => $item.orderId])}" class="btn btn-delete" onclick="return confirm('确定删除吗?');">删除订单</a>
+										{elseif condition="$item.status eq '待发货'"}
+											<a href="" class="btn btn-receive">待发货</a>
+										{elseif condition="$item.status eq '待收货'"}
+											<a href="{:url('orders/receive', ['id' => $item.orderId])}" class="btn btn-receive">确认收货</a>
+										{elseif condition="$item.status eq '待评价'"}
+											<a href="{:url('orders/orderComment', ['orderId' => $item.orderId])}" class="btn btn-receive">去评价</a>
+										{/if}
+										<a href="{:url('orders/orderDetail', ['id' => $item.orderId])}" class="btn btn-detail">订单详情</a>
+									</td>
+								</tr>
+								{/foreach}
+							</table>
+							{/notempty}
+							{empty name="items"}
+							<p>没有订单！</p>
+							{/empty}
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+	</section>
+	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="companyinfo">
+							<h2><span>e</span>-shopper</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+						</div>
+					</div>
+					<div class="col-sm-7">
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="__STATIC__/images/home/iframe1.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="__STATIC__/images/home/iframe2.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="__STATIC__/images/home/iframe3.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="video-gallery text-center">
+								<a href="#">
+									<div class="iframe-img">
+										<img src="__STATIC__/images/home/iframe4.png" alt="" />
+									</div>
+									<div class="overlay-icon">
+										<i class="fa fa-play-circle-o"></i>
+									</div>
+								</a>
+								<p>Circle of Hands</p>
+								<h2>24 DEC 2014</h2>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="address">
+							<img src="__STATIC__/images/home/map.png" alt="" />
+							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Service</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="">Online Help</a></li>
+								<li><a href="">Contact Us</a></li>
+								<li><a href="">Order Status</a></li>
+								<li><a href="">Change Location</a></li>
+								<li><a href="">FAQ’s</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Quock Shop</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="">T-Shirt</a></li>
+								<li><a href="">Mens</a></li>
+								<li><a href="">Womens</a></li>
+								<li><a href="">Gift Cards</a></li>
+								<li><a href="">Shoes</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Policies</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="">Terms of Use</a></li>
+								<li><a href="">Privecy Policy</a></li>
+								<li><a href="">Refund Policy</a></li>
+								<li><a href="">Billing System</a></li>
+								<li><a href="">Ticket System</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>About Shopper</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="">Company Information</a></li>
+								<li><a href="">Careers</a></li>
+								<li><a href="">Store Location</a></li>
+								<li><a href="">Affillate Program</a></li>
+								<li><a href="">Copyright</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>About Shopper</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Get the most recent updates from <br />our site and be updated your self...</p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright &copy; 2024.Company name All rights reserved.</p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="#">TPboys</a></span></p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+
+  
+    <script src="__STATIC__/js/jquery.js"></script>
+	<script src="__STATIC__/js/price-range.js"></script>
+	<script src="__STATIC__/js/jquery.scrollUp.min.js"></script>
+	<script src="__STATIC__/js/bootstrap.min.js"></script>
+    <script src="__STATIC__/js/jquery.prettyPhoto.js"></script>
+    <script src="__STATIC__/js/main.js"></script>
+	<script>
+		function loadCategoryProducts(categoryId) {
+			// 重定向到当前页面，附带所选分类的ID
+			window.location.href = "{:url('index/index')}?category_id=" + categoryId;
+		}
+	</script>
+</body>
+</html>

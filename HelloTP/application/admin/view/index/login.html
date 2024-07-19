@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2193b0, #6dd5ed);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9); /* 设置背景颜色为白色并增加透明度 */
+            padding: 20px 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+        .login-container h1 {
+            margin-bottom: 24px;
+            color: #333;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"],
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .login-container img {
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .login-container .captcha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>管理员登录</h1>
+        <form action="{:Url('admin/index/logincheck')}" method="post">
+            <input type="text" name="adminName" placeholder="用户名" required>
+            <input type="password" name="adminPwd" placeholder="密码" required>
+            <div class="captcha">
+                <input type="text" name="yzm" placeholder="填写右侧的验证码" required>
+                <img src="{:Url('admin/index/show_yzm')}" alt="验证码" title="看不清？点击换一个" width="121" height="32" onclick="this.src=this.src+'?'">
+            </div>
+            <input type="submit" value="登录">
+        </form>
+    </div>
+</body>
+</html>

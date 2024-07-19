@@ -1,0 +1,246 @@
+{layout name="layout" /}
+<style>
+    /* 卡片样式 */
+    .card {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card h3 {
+        margin: 0;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .card p {
+        margin: 0;
+        color: #777;
+    }
+
+    .card .stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .card .stats div {
+        text-align: center;
+        flex: 1;
+    }
+
+    .card .stats div:not(:last-child) {
+        border-right: 1px solid #ddd;
+    }
+
+    .card .stats h4 {
+        margin: 0;
+        color: #555;
+    }
+
+    .card .stats p {
+        margin: 5px 0 0;
+        color: #111;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* 最近活动样式 */
+    .activity-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .activity-list li {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+    }
+
+    .activity-list li:last-child {
+        border-bottom: none;
+    }
+
+    .activity-list li .icon {
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 50%;
+        padding: 10px;
+        margin-right: 10px;
+    }
+
+    .activity-list li .details {
+        flex: 1;
+    }
+
+    .activity-list li .time {
+        color: #bbb;
+        font-size: 12px;
+    }
+
+    .quick-actions {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .quick-actions a {
+        display: block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .quick-actions a:hover {
+        background-color: #0056b3;
+    }
+
+    /* 用户评价样式 */
+    .reviews-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .reviews-list li {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+    }
+
+    .reviews-list li:last-child {
+        border-bottom: none;
+    }
+
+    .reviews-list li .avatar {
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 50%;
+        padding: 10px;
+        margin-right: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        line-height: 30px;
+    }
+
+    .reviews-list li .details {
+        flex: 1;
+    }
+
+    .reviews-list li .rating {
+        color: #ff9800;
+        font-size: 14px;
+    }
+
+    .reviews-list li .time {
+        color: #bbb;
+        font-size: 12px;
+    }
+</style>
+<div class="card">
+    <h3>欢迎您，管理员 {$Request.session.adminName}</h3>
+    <p>这是您的后台首页，您可以在这里管理商城的各项事务。</p>
+</div>
+
+<div class="card">
+    <h3>统计信息</h3>
+    <div class="stats">
+        <div>
+            <h4>用户数</h4>
+            <p>1234</p>
+        </div>
+        <div>
+            <h4>订单数</h4>
+            <p>567</p>
+        </div>
+        <div>
+            <h4>销售额</h4>
+            <p>￥89,000</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>快捷操作</h3>
+    <div class="quick-actions">
+        <a href="{:Url('admin/product/productNew')}">添加新商品</a>
+        <a href="{:Url('admin/orders/index')}">查看订单</a>
+        <a href="{:Url('admin/index/uploadPic')}">上传图片</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>最近活动</h3>
+    <ul class="activity-list">
+        <li>
+            <div class="icon">A</div>
+            <div class="details">
+                管理员A添加了新商品“商品1”
+                <div class="time">10分钟前</div>
+            </div>
+        </li>
+        <li>
+            <div class="icon">B</div>
+            <div class="details">
+                管理员B更新了订单“订单123”状态
+                <div class="time">30分钟前</div>
+            </div>
+        </li>
+        <li>
+            <div class="icon">C</div>
+            <div class="details">
+                管理员C上传了新的商品图片
+                <div class="time">1小时前</div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3>用户评价</h3>
+    <ul class="reviews-list">
+        <li>
+            <div class="avatar">张</div>
+            <div class="details">
+                <p><strong>张三</strong> 购买了“商品1”</p>
+                <p class="rating">★★★★☆</p>
+                <p>商品质量很好，物流也很快，下次还会再来！</p>
+                <div class="time">2小时前</div>
+            </div>
+        </li>
+        <li>
+            <div class="avatar">李</div>
+            <div class="details">
+                <p><strong>李四</strong> 购买了“商品2”</p>
+                <p class="rating">★★★★★</p>
+                <p>客服服务态度很好，解答非常耐心。</p>
+                <div class="time">1天前</div>
+            </div>
+        </li>
+        <li>
+            <div class="avatar">王</div>
+            <div class="details">
+                <p><strong>王五</strong> 购买了“商品3”</p>
+                <p class="rating">★★★☆☆</p>
+                <p>商品一般，价格有点高。</p>
+                <div class="time">3天前</div>
+            </div>
+        </li>
+    </ul>
+</div>
